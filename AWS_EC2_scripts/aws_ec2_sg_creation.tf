@@ -3,15 +3,15 @@
 resource "aws_instance" "sampleserver" {
   ami           	= "ami-074df373d6bafa625"
   instance_type 	= "t2.micro"
-  vpc_security_group_ids = [aws_security_group.Allow_SSH.id]
+  vpc_security_group_ids = [aws_security_group.allow_ssh_all.id]
 
   tags 				= {
     Name			= "sampleserver"
   }
 }
 
-resource "aws_security_group" "Allow_SSH" {
-  name        		= "Allow_SSH"
+resource "aws_security_group" "allow_ssh_all" {
+  name        		= "allow_ssh_all"
   description 		= "Allow SSH inbound traffic"
 
   ingress {
@@ -30,7 +30,7 @@ resource "aws_security_group" "Allow_SSH" {
   }
 
   tags 				= {
-    Name 			= "Allow_SSH"
+    Name 			= "allow_ssh_all"
   }
 }
 
