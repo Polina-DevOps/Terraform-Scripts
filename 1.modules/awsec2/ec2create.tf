@@ -1,5 +1,14 @@
 ## This script to create AWS EC2 Instance creation"
 
+terraform {
+  backend "s3" {
+    bucket = "polina-terraform"
+    key    = "sample/terraform.tfstate"
+    region = "us-east-1"
+    dynamodb_table = "terraform"
+  }
+}
+
 resource "aws_instance" "instance" {
   count                   = 3
   ami           	      = "ami-074df373d6bafa625"
