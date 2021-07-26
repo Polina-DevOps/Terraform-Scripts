@@ -25,5 +25,5 @@ resource "aws_security_group" "allow_all_jul" {
 }
 
 output "SG_ID" {
-  value = aws_security_group.allow_all_jul.id
+  value             = aws_security_group.allow_all_jul.id
 }
