@@ -1,6 +1,7 @@
 ## Main or root module file
 
 module "EC2_SAMPLE" {
+  count = 3
   depends_on = [module.SG_SAMPLE]
   source = "./awsec2"
   SG_ID  = module.SG_SAMPLE.SG_ID
