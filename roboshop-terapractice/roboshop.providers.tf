@@ -8,7 +8,7 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "polina-terraform"
-    key    = "roboshop/practice-init/"
+    key    = "roboshop/practice-init/terraform.tfstate"
     region = "us-east-1"
     dynamodb_table = "terraform"
   }
