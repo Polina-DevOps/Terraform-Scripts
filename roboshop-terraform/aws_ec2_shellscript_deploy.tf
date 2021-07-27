@@ -55,6 +55,7 @@ resource "aws_ec2_tag" "robo_server_names" {
 ## Define DNS decords
 
 resource "aws_route53_record" "roboshop" {
+  count = length(var.COMPONENTS)
   zone_id = Z039980724SLMJM27D0IM
   name    = "roboshop.internal"
   type    = "A"
