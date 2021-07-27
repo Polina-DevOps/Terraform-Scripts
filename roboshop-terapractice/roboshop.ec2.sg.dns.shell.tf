@@ -6,7 +6,7 @@ resource "aws_spot_instance_request" "cheap_worker" {
   spot_price              = "0.03"
   instance_type           = "t2.micro"
   wait_for_fulfillment    = true
-  vpc_security_group_ids = [aws_security_group.allow_roboshop_tcp.id]
+  vpc_security_group_ids  = [aws_security_group.allow_roboshop_tcp.id]
 
   tags = {
     Name = element(var.MYSERVERS,count.index)
@@ -20,16 +20,16 @@ resource "aws_security_group" "allow_roboshop_tcp" {
   description = "Allow TLS inbound traffic"
 
   ingress {
-    from_port        = 443
-    to_port          = 443
+    from_port        = 0
+    to_port          = 10000
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
 
   egress {
     from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
+    to_port          = 10000
+    protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
 
