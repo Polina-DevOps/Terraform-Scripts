@@ -57,7 +57,7 @@ resource "aws_ec2_tag" "robo_server_names" {
 resource "aws_route53_record" "roboshop" {
   count = length(var.COMPONENTS)
   zone_id = Z039980724SLMJM27D0IM
-  name    = "roboshop.internal"
+  name    = element(var.COMPONENTS,count.index )
   type    = "A"
   ttl     = "300"
   records = element(aws_spot_instance_request.cheap_worker.*.private_ip,count.index)
