@@ -62,8 +62,9 @@ resource "aws_route53_record" "roboshop_DNS_Ser" {
 ## To define shell scripts
 
 resource "null_resource" "shellscript_define" {
-  provisioner "remote-exec" {
     count            = length(var.SERVERS_VAR)
+    depends_on       = [aws_route53_record.roboshop_DNS_Ser]
+    provisioner "remote-exec" {
     connection {
       type           = "ssh"
       host           = element(aws_spot_instance_request.cheap_worker.*.private_ip,count.index)
