@@ -66,7 +66,7 @@ resource "null_resource" "shellscript_define" {
     count            = length(var.SERVERS_VAR)
     connection {
       type           = "ssh"
-      host           = element(aws_spot_instance_request.cheap_worker.private_ip,count.index )
+      host           = element(aws_spot_instance_request.cheap_worker.*.private_ip,count.index )
       user           = "centos"
       password       = "DevOps321"
     }
