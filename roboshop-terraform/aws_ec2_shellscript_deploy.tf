@@ -70,17 +70,16 @@ resource "null_resource" "roboshop_shell_scripts" {
   count                     = length(var.COMPONENTS)
   provisioner "remote-exec" {
     connection {
-      type                  = "ssh"
+      host                  = element(aws_spot_instance_request.cheap_worker.*.private_ip,count.index)
       user                  = "centos"
       password              = "DevOps321"
-      host                  = element(aws_spot_instance_request.cheap_worker.*.private_ip,count.index)
     }
 
     inline = [
             "cd /home/centos",
             "git clone https://github.com/Polina-DevOps/Shell-Scripts.git",
             "cd /home/centos/Shell-Scripts/Roboshop-Init",
-            "sudo make $(element(var.COMPONENTS, count.index ))"
+            "sudo make ${element(var.COMPONENTS, count.index )}"
     ]
   }
 }
