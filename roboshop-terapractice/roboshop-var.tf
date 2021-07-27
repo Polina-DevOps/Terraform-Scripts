@@ -1,1 +1,1 @@
-variable "SERVERSVAR" {}
+variable "MYSERVERS" {}

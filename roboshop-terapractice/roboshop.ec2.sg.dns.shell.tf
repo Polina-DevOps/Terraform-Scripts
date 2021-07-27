@@ -1,7 +1,7 @@
 # Request a spot instance at $0.03
 
 resource "aws_spot_instance_request" "cheap_worker" {
-  count                   = length(var.SERVERSVAR)
+  count                   = length(var.MYSERVERS)
   ami                     = "ami-074df373d6bafa625"
   spot_price              = "0.03"
   instance_type           = "t2.micro"
@@ -9,7 +9,7 @@ resource "aws_spot_instance_request" "cheap_worker" {
   vpc_security_group_ids = [aws_security_group.allow_roboshop_tcp.id]
 
   tags = {
-    Name = element(var.SERVERSVAR,count.index)
+    Name = element(var.MYSERVERS,count.index)
   }
 }
 
@@ -42,18 +42,18 @@ resource "aws_security_group" "allow_roboshop_tcp" {
 
 resource "aws_ec2_tag" "robhop_server_tags" {
   depends_on =       [aws_route53_record.roboshop_DNS_Ser]
-  count              = length(var.SERVERSVAR)
+  count              = length(var.MYSERVERS)
   resource_id        = element(aws_spot_instance_request.cheap_worker.*.spot_instance_id,count.index)
   key                = "Name"
-  value              = element(var.SERVERSVAR,count.index)
+  value              = element(var.MYSERVERS,count.index)
 }
 
 ## To define route53 DNS entries
 
 resource "aws_route53_record" "roboshop_DNS_Ser" {
-  count              = length(var.SERVERSVAR)
+  count              = length(var.MYSERVERS)
   zone_id            = "Z039980724SLMJM27D0IM"
-  name               = element(var.SERVERSVAR,count.index)
+  name               = element(var.MYSERVERS,count.index)
   type               = "A"
   ttl                = "300"
   records            = [element(aws_spot_instance_request.cheap_worker.*.private_ip,count.index)]
@@ -62,7 +62,7 @@ resource "aws_route53_record" "roboshop_DNS_Ser" {
 ## To define shell scripts
 resource "null_resource" "shell_script_robo" {
   depends_on       = [aws_route53_record.roboshop_DNS_Ser]
-  count            = length(var.SERVERSVAR)
+  count            = length(var.MYSERVERS)
   provisioner "remote-exec" {
     connection {
       host                  = element(aws_spot_instance_request.cheap_worker.*.private_ip,count.index )
@@ -74,7 +74,7 @@ resource "null_resource" "shell_script_robo" {
       "cd /home/centos",
       "git clone https://github.com/Polina-DevOps/Shell-Scripts.git",
       "cd /home/centos/Shell-Scripts/Roboshop-Init",
-      "sudo make ${element(var.SERVERSVAR,count.index )}"
+      "sudo make ${element(var.MYSERVERS,count.index )}"
     ]
   }
 }

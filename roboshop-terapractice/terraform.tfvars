@@ -1,1 +1,1 @@
-SERVERSVAR = ["mysql", "mongodb", "rabbitmq", "payment", "shipping", "cart", "user", "redis", "catalogue", "frontend"]
+MYSERVERS = ["mysql", "mongodb", "rabbitmq", "payment", "shipping", "cart", "user", "redis", "catalogue", "frontend"]
