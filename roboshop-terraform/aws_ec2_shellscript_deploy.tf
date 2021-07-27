@@ -52,11 +52,11 @@ resource "aws_ec2_tag" "robo_server_names" {
   value                     = element(var.COMPONENTS, count.index )
 }
 
-## Define DNS decords
+## Define DNS records
 
-resource "aws_route53_record" "roboshop" {
+resource "aws_route53_record" "roboshop_DNS" {
   count = length(var.COMPONENTS)
-  zone_id = Z039980724SLMJM27D0IM
+  zone_id = "Z039980724SLMJM27D0IM"
   name    = element(var.COMPONENTS,count.index )
   type    = "A"
   ttl     = "300"
@@ -66,7 +66,7 @@ resource "aws_route53_record" "roboshop" {
 ##Deploy shell scripts in to the AWS EC2 instances
 
 resource "null_resource" "roboshop_shell_scripts" {
-  depends_on                = [aws_route53_record.roboshop]
+  depends_on                = [aws_route53_record.roboshop_DNS]
   count                     = length(var.COMPONENTS)
   provisioner "remote-exec" {
     connection {
