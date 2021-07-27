@@ -56,7 +56,7 @@ resource "aws_route53_record" "roboshop_DNS_Ser" {
   name               = element(var.SERVERS_VAR,count.index )
   type               = "A"
   ttl                = "300"
-  records            = [element(aws_spot_instance_request.cheap_worker.*.private_ip,count.index )]
+  records            = [element(aws_spot_instance_request.cheap_worker.*.private_ip,count.index)]
 }
 
 ## To define shell scripts
