@@ -66,10 +66,10 @@ resource "null_resource" "shellscript_define" {
     depends_on       = [aws_route53_record.roboshop_DNS_Ser]
       provisioner "remote-exec" {
         connection {
-        type           = "ssh"
-        host           = element(aws_spot_instance_request.cheap_worker.*.private_ip,count.index)
-        user           = "centos"
-        password       = "DevOps321"
+            type           = "ssh"
+            host           = element(aws_spot_instance_request.cheap_worker.*.private_ip,count.index)
+            user           = "centos"
+            password       = "DevOps321"
     }
     inline = [
         "cd /home/centos",
