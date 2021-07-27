@@ -3,7 +3,7 @@
 # Request a spot instance at $0.03
 resource "aws_spot_instance_request" "cheap_worker" {
   depends_on                = [aws_security_group.roboshop_allowall_tcp]
-  count                     = length(COMPONENTS)
+  count                     = length(var.COMPONENTS)
   ami                       = "ami-074df373d6bafa625"
   spot_price                = "0.0035"
   instance_type             = "t2.micro"
@@ -11,7 +11,7 @@ resource "aws_spot_instance_request" "cheap_worker" {
   wait_for_fulfillment      = true
 
   tags                      = {
-    Name                    = element(COMPONENTS,count.index)
+    Name                    = element(var.COMPONENTS,count.index)
   }
 }
 
@@ -46,7 +46,7 @@ resource "aws_security_group" "roboshop_allowall_tcp" {
 
 resource "aws_ec2_tag" "robo_server_names" {
   depends_on                = [aws_spot_instance_request.cheap_worker]
-  count                     = length(COMPOENENTS)
+  count                     = length(var.COMPONENTS)
   resource_id               = element(aws_spot_instance_request.cheap_worker.*.spot_instance_id, count.index )
   key                       = "Name"
   value                     = element(var.COMPONENTS, count.index )
