@@ -1,0 +1,1 @@
+variable "SERVERS_VAR" {}
