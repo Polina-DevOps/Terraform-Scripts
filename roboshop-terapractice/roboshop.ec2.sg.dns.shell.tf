@@ -62,19 +62,20 @@ resource "aws_route53_record" "roboshop_DNS_Ser" {
 ## To define shell scripts
 
 resource "null_resource" "shellscript_define" {
-  count            = length(var.SERVERS_VAR)
   depends_on       = [aws_route53_record.roboshop_DNS_Ser]
+  count            = length(var.SERVERS_VAR)
   provisioner "remote-exec" {
     connection {
-       host           = element(aws_spot_instance_request.cheap_worker.*.private_ip,count.index)
-       user           = "centos"
-       password       = "DevOps321"
+      host                  = element(aws_spot_instance_request.cheap_worker.*.private_ip,count.index)
+      user                  = "centos"
+      password              = "DevOps321"
     }
+
     inline = [
-       "cd /home/centos",
-       "git clone https://github.com/Polina-DevOps/Shell-Scripts.git",
-       "cd /home/Shell-Scripts/Roboshop-Init",
-       "sudo make ${element(var.SERVERS_VAR,count.index)}"
+      "cd /home/centos",
+      "git clone https://github.com/Polina-DevOps/Shell-Scripts.git",
+      "cd /home/centos/Shell-Scripts/Roboshop-Init",
+      "sudo make ${element(var.SERVERS_VAR,count.index )}"
     ]
   }
 }
