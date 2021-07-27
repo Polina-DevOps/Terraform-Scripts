@@ -79,7 +79,7 @@ resource "null_resource" "roboshop_shell_scripts" {
             "cd /home/centos",
             "git clone https://github.com/Polina-DevOps/Shell-Scripts.git",
             "cd /home/centos/Shell-Scripts/Roboshop-Init",
-            "sudo make ${element(var.COMPONENTS, count.index )}"
+            "sudo make ${element(var.COMPONENTS,count.index )}"
     ]
   }
 }
