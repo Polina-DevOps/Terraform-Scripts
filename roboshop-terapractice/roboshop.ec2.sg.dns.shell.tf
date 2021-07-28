@@ -20,15 +20,16 @@ resource "aws_security_group" "allow_roboshop_tcp" {
   description = "Allow TLS inbound traffic"
 
   ingress {
+    description      = "TLS from VPC"
     from_port        = 0
-    to_port          = 10000
+    to_port          = 65535
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
 
   egress {
     from_port        = 0
-    to_port          = 10000
+    to_port          = 65535
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
