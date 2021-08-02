@@ -1,4 +1,4 @@
-## To create AWS instance & SG creations
+## To create AWS instance & SG creation
 
 # Request a spot instance at $0.03
 resource "aws_spot_instance_request" "cheap_worker" {
@@ -56,7 +56,7 @@ resource "aws_ec2_tag" "robo_server_names" {
 
 resource "aws_route53_record" "roboshop_DNS" {
   count = length(var.COMPONENTS)
-  zone_id = "Z0248969MYZ0YPE9LTS3"
+  zone_id = "Z039980724SLMJM27D0IM"
   name    = element(var.COMPONENTS,count.index )
   type    = "A"
   ttl     = "300"

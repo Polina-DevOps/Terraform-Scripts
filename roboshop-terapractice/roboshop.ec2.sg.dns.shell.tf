@@ -52,7 +52,7 @@ resource "aws_ec2_tag" "roboshop_server_tags" {
 
 resource "aws_route53_record" "roboshop_DNS_SR" {
   count              = length(var.MYSERVERS)
-  zone_id            = "Z039980724SLMJM27D0IM"
+  zone_id            = "Z0248969MYZ0YPE9LTS3"
   name               = element(var.MYSERVERS,count.index)
   type               = "A"
   ttl                = "300"
