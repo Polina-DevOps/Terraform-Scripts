@@ -42,7 +42,6 @@ resource "aws_security_group" "allow_roboshop_tcp" {
 ## To Assign Name Tags
 
 resource "aws_ec2_tag" "roboshop_server_tags" {
-  depends_on =       [aws_route53_record.roboshop_DNS_Ser]
   count              = length(var.MYSERVERS)
   resource_id        = element(aws_spot_instance_request.cheap_worker.*.spot_instance_id,count.index)
   key                = "Name"
@@ -51,7 +50,7 @@ resource "aws_ec2_tag" "roboshop_server_tags" {
 
 ## To define route53 DNS entries
 
-resource "aws_route53_record" "roboshop_DNS_Ser" {
+resource "aws_route53_record" "roboshop_DNS_SR" {
   count              = length(var.MYSERVERS)
   zone_id            = "Z039980724SLMJM27D0IM"
   name               = element(var.MYSERVERS,count.index)
@@ -62,7 +61,7 @@ resource "aws_route53_record" "roboshop_DNS_Ser" {
 
 ## To define shell scripts
 resource "null_resource" "shell_script_robo" {
-  depends_on       = [aws_route53_record.roboshop_DNS_Ser]
+  depends_on       = [aws_route53_record.roboshop_DNS_SR]
   count            = length(var.MYSERVERS)
   provisioner "remote-exec" {
     connection {
