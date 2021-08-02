@@ -1,4 +1,4 @@
-# Request a spot instance at $0.03
+## Request a spot instance at $0.03
 
 resource "aws_spot_instance_request" "cheap_worker" {
   count                   = length(var.MYSERVERS)
