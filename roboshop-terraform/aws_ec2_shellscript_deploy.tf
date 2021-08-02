@@ -1,4 +1,4 @@
-## To create AWS instance & SG creation
+## To create AWS instance & SG creations
 
 # Request a spot instance at $0.03
 resource "aws_spot_instance_request" "cheap_worker" {
