@@ -41,7 +41,7 @@ resource "aws_security_group" "allow_roboshop_tcp" {
 
 ## To Assign Name Tags
 
-resource "aws_ec2_tag" "robhop_server_tags" {
+resource "aws_ec2_tag" "roboshop_server_tags" {
   depends_on =       [aws_route53_record.roboshop_DNS_Ser]
   count              = length(var.MYSERVERS)
   resource_id        = element(aws_spot_instance_request.cheap_worker.*.spot_instance_id,count.index)
