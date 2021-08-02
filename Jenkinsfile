@@ -32,10 +32,6 @@ pipeline {
         input {
             message "Should we continue?"
             ok "Yes, we should."
-        ##    submitter "alice,bob"
-        ##    parameters {
-        ##           string(name: 'PERSON', defaultValue: 'admin', description: 'Who should I say hello to?')
-        ##    }
         }
         steps {
                echo 'Running terraform Destroy..'
