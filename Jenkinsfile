@@ -16,7 +16,7 @@ pipeline {
 
     stage('TERRAFORM_APPLY') {
         when {
-            environment CHOICE: 'CREATE', value: 'TERRAFORM_APPLY'
+            environment name: 'CHOICE', value: 'CREATE'
         }
         steps {
                echo 'Running terraform apply..'
@@ -27,7 +27,7 @@ pipeline {
 
     stage('TERRAFORM_Destroy') {
         when {
-            environment CHOICE: 'DESTROY', value: 'TERRAFORM_Destroy'
+            environment name: 'CHOICE', value: 'DESTROY'
         }
         steps {
                echo 'Running terraform Destroy..'
