@@ -10,7 +10,7 @@ pipeline {
             steps {
                 echo 'Running terraform init..'
                 sh 'hostname'
-                sh 'cd roboshop_terraform ; terraform init'
+                sh 'cd roboshop-terraform ; terraform init'
             }
         }
 
@@ -21,7 +21,7 @@ pipeline {
         steps {
                echo 'Running terraform apply..'
                sh 'hostname'
-               sh 'cd roboshop_terraform ; terraform apply -auto-approve'
+               sh 'cd roboshop-terraform ; terraform apply -auto-approve'
             }
         }
 
@@ -32,7 +32,7 @@ pipeline {
         steps {
                echo 'Running terraform Destroy..'
                sh 'hostname'
-               sh 'cd roboshop_terraform ; terraform destroy -auto-approve'
+               sh 'cd roboshop-terraform ; terraform destroy -auto-approve'
             }
         }
     }
